@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private int aktualnePytanie;
     private Button buttonNastepne;
     private Button buttonTak;
+    private Button buttonNie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,15 @@ public class MainActivity extends AppCompatActivity {
         textView = findViewById(R.id.textViewTrescPytania);
         aktualnePytanie = 0;
         wstawPytanie(aktualnePytanie);
-
+        buttonNie = findViewById(R.id.button2);
+        buttonNie.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        sprawdzToPytanie(false);
+                    }
+                }
+        );
         buttonTak = findViewById(R.id.button);
         buttonTak.setOnClickListener(
                 new View.OnClickListener() {
@@ -43,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                         aktualnePytanie++;
                         if(aktualnePytanie == listaPytan.size()){
                             buttonNastepne.setVisibility(View.INVISIBLE);
+                            buttonTak.setVisibility(View.INVISIBLE);
+                            buttonNie.setVisibility(View.INVISIBLE);
+                            int ile = podliczPunkty();
+                            textView.setText("Koniec testu otrzymałeś "+String.valueOf(ile)+" punktów");
                         }
                         else {
                             wstawPytanie(aktualnePytanie);
@@ -81,5 +94,17 @@ public class MainActivity extends AppCompatActivity {
         ));
 
     }
+
+    private int podliczPunkty(){
+        int ilePunktow = 0;
+        for (Pytanie pytanie: listaPytan) {
+            if(pytanie.isUdzielonoPoprawnaOdpowiedz()){
+                ilePunktow++;
+            }
+        }
+        return ilePunktow;
+    }
+
+
 
 }
