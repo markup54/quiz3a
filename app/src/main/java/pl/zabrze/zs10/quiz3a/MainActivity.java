@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,12 +18,14 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonNastepne;
     private Button buttonTak;
     private Button buttonNie;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         wypelnijPytania();
+        imageView = findViewById(R.id.imageView);
         textView = findViewById(R.id.textViewTrescPytania);
         aktualnePytanie = 0;
         wstawPytanie(aktualnePytanie);
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private void wstawPytanie(int i){
         Pytanie pytanie = listaPytan.get(i);
         textView.setText(pytanie.getTresc());
+        imageView.setImageResource(pytanie.getIdObrazka());
     }
 
 
@@ -81,16 +85,20 @@ public class MainActivity extends AppCompatActivity {
         listaPytan.add(new Pytanie(
                 "Czy sekwoja może mieć 100 metrów wysokości?",
                 "Sekwoje są bardzo wysokie",
-                true));
+                true,
+                R.drawable.sekwoja
+                ));
         listaPytan.add(new Pytanie(
                 "Czy najgrubsze drzewo ma obwód 10 metrów?",
                 "Obwód pnia najgrubszego drzewa świata ma 44 metry.",
-                false
+                false,
+                R.drawable.duze
         ));
         listaPytan.add(new Pytanie(
                 "Czy drzewa są pochłaniaczem tlenu?",
                 "Zastanów się na czym polega fotosynteza",
-                false
+                false,
+                R.drawable.tlen
         ));
 
     }
